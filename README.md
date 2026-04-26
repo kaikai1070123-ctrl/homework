@@ -1,23 +1,20 @@
-# IM-Scholar: 資管學術論文 RAG 系統專案
+## 2. 專案文件導覽 (Project Artifacts)
 
-這是一個針對資管領域學術論文設計的檢索增強生成（RAG）系統，旨在提升專業知識檢索的可解釋性與準確度。
+本專案嚴格遵循領域驅動 RAG 系統開發規範，各項核心交付文件如下：
 
-## 1. 架構圖解 (Architecture)
+* **[技術規格說明書 (Specs)](./docs/specs.md)**
+    * 定義 Chunking Strategy（語義切分）、性能指標（Latency < 800ms）以及使用 RAGAS 框架的評估機制。
+* **[架構決策紀錄 (ADR)](./docs/adr-records.md)**
+    * 詳述為何選擇 BGE-M3 作為 Embedding 模型、引入 FlashRank 作為 Reranker 的邏輯，以及選擇 ChromaDB 的背景。
+* **[學術論文 RAG 理論白皮書 (Whitepaper)](./docs/whitepaper.md)**
+    * 探討資管文獻數位表徵的難點、系統如何透過引用來源對齊抑制「幻覺」問題，以及處理領域專有名詞的創新策略。
 
-```mermaid
-graph LR
-    subgraph "數據處理 (ETL)"
-        PDF[學術論文 PDF] -->|PyMuPDF| MD[Markdown]
-        MD -->|Semantic Chunking| CH[Chunks]
-    end
+## 3. 開發環境與技術棧
+* **Embedding:** BGE-M3 (Multi-lingual & Hybrid Search)
+* **Vector DB:** ChromaDB
+* **Reranker:** FlashRank
+* **LLM:** OpenAI GPT-4o
+* **Evaluation:** RAGAS Framework
 
-    subgraph "檢索層 (Retrieval)"
-        CH -->|BGE-M3 Embedding| VDB[(Vector DB: ChromaDB)]
-        Query[使用者提問] -->|Hybrid Search| VDB
-        VDB -->|Top-10| RR[Reranker: FlashRank]
-    end
-
-    subgraph "生成層 (Generation)"
-        RR -->|Top-3 Context| LLM[GPT-4o]
-        LLM --> Output[可解釋性回答]
-    end
+## 4. 授權協議
+本專案採用 [MIT License](./LICENSE) 授權。

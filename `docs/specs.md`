@@ -1,1 +1,0 @@
-**Commit changes**「本系統採用 Semantic Chunking 策略，確保語義完整；評估機制使用 RAGAS 框架，目標 Faithfulness 得分 > 0.85。」
